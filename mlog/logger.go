@@ -86,35 +86,35 @@ func (l *Logger) Log(level int, msg string, context ...interface{}) {
 }
 
 func (l *Logger) Debug(msg string, context ...interface{}) {
-	l.Log(LDEBUG, msg, context)
+	l.Log(LDEBUG, msg, context...)
 }
 
 func (l *Logger) Info(msg string, context ...interface{}) {
-	l.Log(LINFO, msg, context)
+	l.Log(LINFO, msg, context...)
 }
 
 func (l *Logger) Notice(msg string, context ...interface{}) {
-	l.Log(LNOTICE, msg, context)
+	l.Log(LNOTICE, msg, context...)
 }
 
 func (l *Logger) Warning(msg string, context ...interface{}) {
-	l.Log(LWARNING, msg, context)
+	l.Log(LWARNING, msg, context...)
 }
 
 func (l *Logger) Error(msg string, context ...interface{}) {
-	l.Log(LERROR, msg, context)
+	l.Log(LERROR, msg, context...)
 }
 
 func (l *Logger) Critical(msg string, context ...interface{}) {
-	l.Log(LCRITICAL, msg, context)
+	l.Log(LCRITICAL, msg, context...)
 }
 
 func (l *Logger) Alert(msg string, context ...interface{}) {
-	l.Log(LALERT, msg, context)
+	l.Log(LALERT, msg, context...)
 }
 
 func (l *Logger) Emergency(msg string, context ...interface{}) {
-	l.Log(LEMERGENCY, msg, context)
+	l.Log(LEMERGENCY, msg, context...)
 }
 
 func (l *Logger) Reload() error {
