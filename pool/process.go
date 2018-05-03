@@ -13,17 +13,20 @@ type StdLogger interface {
 }
 
 type ProcessPool struct {
-	pool   chan struct{}
-	Logger StdLogger
+	pool chan struct{}
+}
+
+var Logger StdLogger
+
+func init() {
+	Logger = log.New(ioutil.Discard, "", log.LstdFlags)
 }
 
 func NewProcessPool(num int) *ProcessPool {
 	pool := make(chan struct{}, num)
-	logger := log.New(ioutil.Discard, "", log.LstdFlags)
 
 	return &ProcessPool{
-		pool:   pool,
-		Logger: logger,
+		pool: pool,
 	}
 }
 
@@ -36,12 +39,12 @@ func (p *ProcessPool) Go(callable func()) {
 }
 
 func (p *ProcessPool) Close() {
-	p.Logger.Println("Closing ProcessPool")
+	Logger.Println("Closing ProcessPool")
 	close(p.pool)
 	for !p.empty() { // 等待所有协程执行完成
 		time.Sleep(time.Microsecond * 10)
 	}
-	p.Logger.Println("ProcessPool Closed")
+	Logger.Println("ProcessPool Closed")
 }
 
 func (p *ProcessPool) empty() bool {
