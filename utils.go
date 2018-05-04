@@ -9,6 +9,9 @@ import (
 	"regexp"
 	"strings"
 	"time"
+	"os"
+	"os/signal"
+	"syscall"
 )
 
 func Trim(str string) string {
@@ -63,4 +66,11 @@ func HttpGet(url string) (string, error) {
 	}
 
 	return string(resBody), nil
+}
+
+func NewStopSignal() chan os.Signal{
+	ch := make(chan os.Signal, 1)
+	signal.Notify(ch, syscall.SIGINT, syscall.SIGTERM, syscall.SIGHUP)
+
+	return ch
 }
