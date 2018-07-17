@@ -30,11 +30,11 @@ func NewProcessPool(num int) *ProcessPool {
 	}
 }
 
-func (p *ProcessPool) Go(callable func()) {
+func (p *ProcessPool) Go(callable func(...interface{}), params ...interface{}) {
 	p.add()
 	go func() {
 		defer p.done()
-		callable()
+		callable(params...)
 	}()
 }
 

@@ -19,14 +19,17 @@ func NewWorkshop(workerNum int) *Workshop {
 
 	for i := 0; i < workerNum; i++ {
 		done[i] = make(chan struct{})
+		wg.Add(1)
 		go ws.worker(i)
 	}
 
 	return ws
 }
 
-func (ws *Workshop) Do(callable func()) {
-	ws.jobs <- callable
+func (ws *Workshop) Do(callable func(...interface{}), params ...interface{}) {
+	ws.jobs <- func() {
+		callable(params...)
+	}
 }
 
 func (ws *Workshop) Close() {
@@ -38,7 +41,6 @@ func (ws *Workshop) Close() {
 }
 
 func (ws *Workshop) worker(idx int) {
-	ws.wg.Add(1)
 	defer ws.wg.Done()
 	Logger.Printf("Worker %d started", idx)
 
