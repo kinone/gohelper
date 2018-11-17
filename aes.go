@@ -1,8 +1,8 @@
 package gohelper
 
 import (
-	"crypto/aes"
 	"bytes"
+	"crypto/aes"
 	"crypto/cipher"
 	"encoding/base64"
 	"math/rand"
