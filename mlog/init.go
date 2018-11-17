@@ -44,3 +44,45 @@ type LevelLogger interface {
 	Reload() error
 	Close()
 }
+
+const (
+	LDEBUG     = 100
+	LINFO      = 200
+	LNOTICE    = 250
+	LWARNING   = 300
+	LERROR     = 400
+	LCRITICAL  = 500
+	LALERT     = 550
+	LEMERGENCY = 600
+)
+
+var levelPrefix = map[int]string{
+	LDEBUG:     "[DEBUG]",
+	LINFO:      "[INFO]",
+	LNOTICE:    "[NOTICE]",
+	LWARNING:   "[WARNING]",
+	LERROR:     "[ERROR]",
+	LCRITICAL:  "[CRITICAL]",
+	LALERT:     "[ALERT]",
+	LEMERGENCY: "[EMERGENCY]",
+}
+
+var levelString = map[string]int{
+	"debug":     LDEBUG,
+	"info":      LINFO,
+	"notice":    LNOTICE,
+	"warning":   LWARNING,
+	"error":     LERROR,
+	"critical":  LCRITICAL,
+	"alert":     LALERT,
+	"emergency": LEMERGENCY,
+}
+
+func ConvertLogLevel(level string) int {
+	l, e := levelString[level]
+	if !e {
+		return LDEBUG
+	}
+
+	return l
+}
