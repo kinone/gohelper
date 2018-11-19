@@ -105,11 +105,3 @@ func (l *NullLogger) Panicln(v ...interface{}) {
 func (l *NullLogger) Panicf(format string, v ...interface{}) {
 
 }
-
-func (l *NullLogger) Reload() error {
-	return nil
-}
-
-func (l *NullLogger) Close() {
-
-}
