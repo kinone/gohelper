@@ -4,41 +4,33 @@ type StdLogger interface {
 	Print(v ...interface{})
 	Println(v ...interface{})
 	Printf(format string, v ...interface{})
-
-	Fatal(v ...interface{})
-	Fatalln(v ...interface{})
-	Fatalf(format string, v ...interface{})
-
-	Panic(v ...interface{})
-	Panicln(v ...interface{})
-	Panicf(format string, v ...interface{})
 }
 
 type LevelLogger interface {
 	StdLogger
 
-	Debug(msg string, v ...interface{})
+	Debug(v ...interface{})
 	Debugf(format string, v ...interface{})
 
-	Info(msg string, v ...interface{})
+	Info(v ...interface{})
 	Infof(format string, v ...interface{})
 
-	Notice(msg string, v ...interface{})
+	Notice(v ...interface{})
 	Noticef(format string, v ...interface{})
 
-	Warning(msg string, v ...interface{})
+	Warning(v ...interface{})
 	Warningf(format string, v ...interface{})
 
-	Error(msg string, v ...interface{})
+	Error(v ...interface{})
 	Errorf(format string, v ...interface{})
 
-	Critical(msg string, v ...interface{})
+	Critical(v ...interface{})
 	Criticalf(format string, v ...interface{})
 
-	Alert(msg string, v ...interface{})
-	Alertf(msg string, v ...interface{})
+	Alert(v ...interface{})
+	Alertf(format string, v ...interface{})
 
-	Emergency(msg string, v ...interface{})
+	Emergency(v ...interface{})
 	Emergencyf(format string, v ...interface{})
 }
 
@@ -51,6 +43,7 @@ const (
 	LCRITICAL  = 500
 	LALERT     = 550
 	LEMERGENCY = 600
+	NONE       = 1000
 )
 
 var levelPrefix = map[int]string{
@@ -62,6 +55,7 @@ var levelPrefix = map[int]string{
 	LCRITICAL:  "[CRITICAL]",
 	LALERT:     "[ALERT]",
 	LEMERGENCY: "[EMERGENCY]",
+	NONE:       "[NONE]",
 }
 
 var levelString = map[string]int{
