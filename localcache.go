@@ -77,8 +77,15 @@ func (lc *LocalCache) Length() int {
 }
 
 func (lc *LocalCache) Gc() {
-	for key := range lc.buckets {
-		lc.Get(key)
+	lc.mu.RLock()
+	defer lc.mu.RUnlock()
+
+	for k, v := range lc.buckets {
+		if time.Now().After(v.timeout) {
+			lc.mu.RUnlock()
+			lc.Delete(k)
+			lc.mu.RLock()
+		}
 	}
 }
 
