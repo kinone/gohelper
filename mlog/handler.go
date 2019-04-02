@@ -135,7 +135,7 @@ func (h *SmartHandler) start() {
 	h.wg.Add(1)
 	go func() {
 		defer h.wg.Done()
-		h.Handler.Log(LDEBUG, "AysncLogger started")
+		h.Handler.Log(LDEBUG, "AsyncLogger started")
 		defer h.Handler.Log(LDEBUG, "AsyncLogger stoped")
 
 		for {
