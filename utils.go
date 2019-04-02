@@ -4,6 +4,7 @@ import (
 	"crypto/md5"
 	"encoding/hex"
 	"io/ioutil"
+	"net"
 	"net/http"
 	"net/url"
 	"os"
@@ -35,6 +36,22 @@ func IsIMEI(imei string) bool {
 func MD5(str string) string {
 	bs := md5.Sum([]byte(str))
 	return hex.EncodeToString(bs[:])
+}
+
+func LocalIP() ([]string, error) {
+	addrs, err := net.InterfaceAddrs()
+	if nil != err {
+		return nil, err
+	}
+
+	var ips []string
+	for _, addr := range addrs {
+		if ipnet, ok := addr.(*net.IPNet); ok && !ipnet.IP.IsLoopback() && ipnet.IP.To4() != nil {
+			ips = append(ips, ipnet.IP.String())
+		}
+	}
+
+	return ips, nil
 }
 
 func HttpBuildQuery(params map[string]string) string {
