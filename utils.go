@@ -9,11 +9,46 @@ import (
 	"net/url"
 	"os"
 	"os/signal"
+	"reflect"
 	"regexp"
 	"strings"
 	"syscall"
 	"time"
 )
+
+func ArrayUnique(s []interface{}) (r []interface{}) {
+	for _, v := range s {
+		if ArrayIndex(v, r) < 0 {
+			r = append(r, v)
+		}
+	}
+
+	return
+}
+
+func ArrayIndex(niddle interface{}, s []interface{}) int {
+	for k, v := range s {
+		if reflect.DeepEqual(niddle, v) {
+			return k
+		}
+	}
+
+	return -1
+}
+
+func SliceInterface(s interface{}) (r []interface{}) {
+	rs := reflect.ValueOf(s)
+	kind := rs.Kind()
+	if kind != reflect.Slice && kind != reflect.Array {
+		panic(&reflect.ValueError{Method: "gohelper.utils.SliceInterface", Kind: kind})
+	}
+
+	for i := 0; i < rs.Len(); i++ {
+		r = append(r, rs.Index(i).Interface())
+	}
+
+	return
+}
 
 func Trim(str string) string {
 	return strings.TrimSpace(str)
