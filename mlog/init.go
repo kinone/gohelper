@@ -33,6 +33,7 @@ type LevelLogger interface {
 	Emergency(v ...interface{})
 	Emergencyf(format string, v ...interface{})
 
+	Reload() error
 	Close()
 }
 
