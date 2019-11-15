@@ -32,6 +32,8 @@ type LevelLogger interface {
 
 	Emergency(v ...interface{})
 	Emergencyf(format string, v ...interface{})
+
+	Close()
 }
 
 const (
